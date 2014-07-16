@@ -1,0 +1,31 @@
+{
+  "name": "dustin",
+  "version": "1.0.0",
+  "description": "An abstraction on LinkedIn's Dust fork with express support, grunt and gulp tasks",
+  "main": "lib/dustin.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tunderdomb/dustin.git"
+  },
+  "keywords": [
+    "template",
+    "dust"
+  ],
+  "author": "Nagy Zoltan <tunderdomb@gmail.com> (tunderdomb)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tunderdomb/grunt-dustin/issues"
+  },
+  "dependencies": {
+    "dustjs-linkedin": "2.3.4",
+    "dustjs-helpers": "1.2.0",
+    "async": "0.2.10",
+    "mkdirp": "0.3.5",
+    "glob": "4.0.0"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.4",
+    "grunt-contrib-clean": "~0.5.0",
+    "grunt-contrib-concat": "~0.4.0"
+  }
+}
