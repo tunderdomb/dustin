@@ -25,3 +25,6 @@ build/Release
 node_modules
 
 npm-debug.log
+
+# IDE settings dir
+.idea/
