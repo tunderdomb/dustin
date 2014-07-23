@@ -1,6 +1,6 @@
 {
   "name": "dustin",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "An abstraction on LinkedIn's Dust fork with express support",
   "main": "lib/dustin.js",
   "repository": {
