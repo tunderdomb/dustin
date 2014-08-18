@@ -11,67 +11,96 @@ Better templating with LinkedIn's dust fork.
 
 ```js
 var dustin = require("dustin")
-var adapter = dustin({
-  data: "data/*.json",
-  resolve: "view/",
+var dust = dustin({
+  cache: true,
+  views: "/",
   helpers: "helpers/*.js",
-  preserveWhiteSpace: true,
-  setup: function( adapter, dust ){}
+  whiteSpace: true
 })
-
 ```
 
-## API
+#### cache
 
+If false, every `dust.render()` will purge the cache.
+It is especially useful for development, when changes to a template should be
+reflected in the browser on reload.
 
-### adapter.preserveWhiteSpace(preserve)
+### views
 
-switch between minified and unformatted rendering
+Partials will resolve to this folder.
+It helps so you don't have to write full template paths all the time.
 
-### adapter.loadPartial(name)
+### helpers
 
-load a partial from disk by name
-uses the resolve property to construct a path with the current working dir for a dust template.
-appends .dust to the name argument.
+A glob pattern for user helpers to extend the `dust.helpers` object.
 
-### adapter.registerHelpers(sources)
-
-Register helpers.
-
-### adapter.data(sources)
-
-Extend the base context with json files.
-Each file's contents will be assigned to the base context with its name.
-
-### adapter.render(src, content, context, done)
-
-Render a template with an optional context.
-The context will extend the base context object.
-It can be a function which can be used to asynchronously acquire a context.
-This function has a callback, pass this callback the context as the only argument.
-
-### adapter.compile(src, content, done)
-
-Compile a template.
-
-### adapter.__express(path, context, cb)
-
-This function is bound to the adapter object, and can be passed to
-app.engine() in an express application.
-For the rendering to work, you should set two options on the application.
+A helper should export a function with one or two arguments:
 
 ```js
-var adapter = dustin({
-  cache: false,
-  preserveWhiteSpace: false,
-  helpers: "view/helpers/** /*.js",
-  data: "view/data/** /*.json",
-  resolve: "view/"
-})
-
-app.set("view engine", "dust")
-app.set("views", "view/") // the same as the resolve option passed to the adapter
+module.exports = function( helpers, dust ){
+  helpers.something = function(chunk, context, bodies, params){}
+}
 ```
+
+## extended API
+
+### dust.renderSource( src, context, cb )
+
+Same as render, but instead of loading a template by name
+it renders a template string with context.
+
+### dust.__express
+
+An express engine.
+
+Hook it to express like this:
+
+```js
+var dustin = require("dustin")
+var engine = dustin({
+  cache: false,
+  views: "app/views",
+  helpers: "app/helpers/*.js",
+  whiteSpace: true
+})
+app.engine("dust", engine.__express)
+app.set("view engine", "dust")
+app.set("views", "app/views")
+app.set("view cache", false)
+```
+
+## Copy client libraries
+
+```js
+var dustin = require("dustin")
+dustin.client("destination folder", "resolve path", {
+     dust: true,
+     user: "",
+     custom: ""
+   })
+```
+
+### destination
+Client side scripts will be copied here.
+
+### resolve path
+Client templates are loaded like this:
+
+```js
+script.src = template[0] == "/" || /^https?:/.test(template)
+  ? template
+  : ("RESOLVE_PATH"+"/"+template+".js").replace(/\/+/g, "/")
+```
+
+Set the resolve path to a template root.
+
+
+## Client side extended API
+
+### dust.renderElement( template, context, done )
+
+The same as dust.render, but instead of a string it calls `done(err, out)`
+with a document fragment.
 
 ## Licence
 
