@@ -44,11 +44,6 @@ module.exports = function( helpers, dust ){
 
 ## extended API
 
-### dust.renderSource( src, context, cb )
-
-Same as render, but instead of loading a template by name
-it renders a template string with context.
-
 ### dust.__express
 
 An express engine.
