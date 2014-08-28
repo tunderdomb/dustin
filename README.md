@@ -86,10 +86,10 @@ and the name argument with the .dust extension
 ```js
 var dustin = require("dustin")
 dustin.client("destination folder", "resolve path", {
-     dust: true,
-     user: "",
-     custom: ""
-   })
+   dust: true,
+   user: "",
+   custom: ""
+ })
 ```
 
 ### destination
@@ -99,9 +99,9 @@ Client side scripts will be copied here.
 Client templates are loaded like this:
 
 ```js
-    script.src = template[0] == "/" || /^(https?:)?\/\//.test(template)
-      ? template
-      : ("RESOLVE_PATH" + "/" + template + ".js").replace(/\/+/g, "/")
+script.src =  /^(https?:)?\/\/?/.test(template)
+  ? template
+  : ("RESOLVE_PATH" + "/" + template + ".js").replace(/\/+/g, "/")
 ```
 
 Set the resolve path to a template root.
@@ -143,10 +143,10 @@ Context
 Template
 
     {@for var="asd" value="qwe" $in=ooo}
-     {asd}
-     {@for:qwe}
-       {$key} - {$value} {~n}
-     {/for}
+      {asd}
+      {@for:qwe}
+        {$key} - {$value} {~n}
+      {/for}
     {/for}
 
 Output
@@ -182,8 +182,8 @@ It helps cutting down on typing accessors.
 context
 
     "someObject": {
-     "a": "hello",
-     "b": "hi"
+      "a": "hello",
+      "b": "hi"
     }
 
 template
