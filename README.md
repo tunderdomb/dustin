@@ -99,9 +99,9 @@ Client side scripts will be copied here.
 Client templates are loaded like this:
 
 ```js
-script.src = template[0] == "/" || /^https?:/.test(template)
-  ? template
-  : ("RESOLVE_PATH"+"/"+template+".js").replace(/\/+/g, "/")
+    script.src = template[0] == "/" || /^(https?:)?\/\//.test(template)
+      ? template
+      : ("RESOLVE_PATH" + "/" + template + ".js").replace(/\/+/g, "/")
 ```
 
 Set the resolve path to a template root.
