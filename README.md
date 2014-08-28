@@ -64,6 +64,16 @@ app.set("views", "app/views")
 app.set("view cache", false)
 ```
 
+### getTemplateNameFromPath(path)
+
+Returns a template name according to the options you passed to dustin
+
+### getTemplatePathFromName(name)
+
+Returns an absolute path concatenated from the cwd,
+the template dir you passed to dustin
+and the name argument with the .dust extension
+
 ## Copy client libraries
 
 ```js
